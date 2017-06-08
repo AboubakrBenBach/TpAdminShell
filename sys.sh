@@ -25,7 +25,7 @@ do
 	case "$reponse" in 
 		  1)
         #la commande qui permet de donner des informations sur des utilisateurs connecté 3 jours
-		    last seed -3;;
+		    find;;
 		 
 		  2) 
 
@@ -47,7 +47,14 @@ do
 		    sudo /opt/lampp/lampp start ;;
 
 		  3)
+       # Archivage des elements du repertoire personnel qui ont été modifié par l'utilisateur sudoer il y'a 2 jours dans un peripherique externe"
+		    user=$(cat /etc/group | grep sudo | cut -d ":" -f4)
+	            sudo find /home/$user/* -ctime 2 > fichier.txt 
+	            mkdir archive
+                   
                     tar cvf archive.tar ~;;
+		    gzip archive.tar	
+                    cp archive.tar.gz 
 		 
 		  4)
 
